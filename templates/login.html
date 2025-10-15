@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Sistema de Refeições</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      background: linear-gradient(135deg, #2f2f2f, #3f3f3f);
+      color: #f1f1f1;
+      font-family: "Segoe UI", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background-color: #3a3a3a;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      width: 320px;
+      text-align: center;
+      position: relative;
+    }
+
+    .logo {
+      position: absolute;
+      top: -90px;
+      left: 135px;
+      width: 135px;
+    }
+
+    h2 {
+      color: #ffd700;
+      margin-bottom: 25px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 8px;
+      background: #555;
+      color: #fff;
+      font-size: 15px;
+    }
+
+    input:focus {
+      outline: 2px solid #ffd700;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #ffd700;
+      color: #333;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #e6c200;
+    }
+
+    a {
+      color: #ffd700;
+      text-decoration: none;
+      display: block;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .erro {
+      color: #ff6b6b;
+      background: #333;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+     <img src="{{ url_for('static', filename='images/brasao.png') }}" alt="Brasão" class="logo">
+    <h2>Login</h2>
+    <form method="POST">
+      <input type="text" name="email" placeholder="Email" required>
+      <input type="password" name="senha" placeholder="Senha" required>
+      <button type="submit">Entrar</button>
+    </form>
+    {% if erro %}
+      <p class="erro">{{ erro }}</p>
+    {% endif %}
+    <a href="{{ url_for('register') }}">Criar nova conta</a>
+  </div>
+</body>
+</html>

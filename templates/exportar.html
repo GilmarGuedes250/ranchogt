@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Exportar Refeições por Pelotão</title>
+    <style>
+        /* Paleta: Cinza Bandeirantes e Amarelo Ouro */
+        :root {
+            --cinza-escuro: #1f1f1f;
+            --cinza-medio: #3a3a3a;
+            --cinza-claro: #d4d4d4;
+            --amarelo: #ffc107;
+            --branco: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--cinza-escuro);
+            color: var(--branco);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: var(--cinza-medio);
+            color: var(--amarelo);
+            text-align: center;
+            padding: 20px 0;
+            font-size: 1.8em;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-bottom: 4px solid var(--amarelo);
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 80vh;
+            padding: 40px 20px;
+        }
+
+        .exportar-container {
+            background: var(--cinza-medio);
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        h2 {
+            color: var(--amarelo);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            font-size: 1.4em;
+            border-bottom: 2px solid var(--amarelo);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        label {
+            display: block;
+            color: var(--branco);
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid var(--amarelo);
+            background-color: var(--cinza-escuro);
+            color: var(--branco);
+            font-size: 1em;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--branco);
+        }
+
+        button {
+            background-color: var(--amarelo);
+            color: var(--cinza-escuro);
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e6b800;
+            transform: scale(1.05);
+        }
+
+        .msg {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .msg.warning {
+            background-color: #ffcc00;
+            color: #1f1f1f;
+        }
+
+        .msg.success {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .msg.error {
+            background-color: #e53935;
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px 0;
+            color: var(--cinza-claro);
+            font-size: 0.9em;
+            background: var(--cinza-medio);
+            border-top: 2px solid var(--amarelo);
+        }
+
+        @media (max-width: 600px) {
+            .exportar-container {
+                padding: 20px;
+            }
+            h2 {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        Exportar planilha de refeições por Pelotão
+    </header>
+
+    <main>
+        <div class="exportar-container">
+            <h2>Exportar por Pelotão</h2>
+            <form method="post">
+                <label for="pelotao">Selecione o Pelotão:</label>
+                <select name="pelotao" id="pelotao">
+                    <option value="">Todos os Pelotões</option>
+                    {% for p in pelotoes %}
+                        <option value="{{ p }}">{{ p }}</option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit">📤 Exportar Planilha</button>
+            </form>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, msg in messages %}
+                        <div class="msg {{ category }}">{{ msg }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+    </main>
+
+    <footer>
+        © 2025 Sistema de Refeições - Pelotões Bandeirantes
+    </footer>
+
+</body>
+</html>

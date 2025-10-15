@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro - Sistema de Refeições</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      background: linear-gradient(135deg, #2f2f2f, #3f3f3f);
+      color: #f1f1f1;
+      font-family: "Segoe UI", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .register-container {
+      background: #444;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+      width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #ffd700;
+      margin-bottom: 25px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 8px;
+      background: #555;
+      color: #fff;
+      font-size: 15px;
+    }
+
+    input:focus, select:focus {
+      outline: 2px solid #ffd700;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #ffd700;
+      color: #333;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #e6c200;
+    }
+
+    a {
+      color: #ffd700;
+      text-decoration: none;
+      display: block;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .erro {
+      color: #ff6b6b;
+      background: #333;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <h2>Criar Conta</h2>
+    <form method="post">
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="qra" placeholder="QRA" required>
+      <input type="text" name="posto_grad" placeholder="Posto ou Graduação" required>
+      <input type="text" name="re" placeholder="RE" required>
+      <input type="text" name="curso" placeholder="Curso" required>
+      <select name="pelotao" required>
+        <option value="" disabled selected>Selecione o Pelotão</option>
+  <option value="1º Pelotão">1º Pelotão</option>
+  <option value="2º Pelotão">2º Pelotão</option>
+  <option value="3º Pelotão">3º Pelotão</option>
+  <option value="4º Pelotão">4º Pelotão</option>
+  <option value="5º Pelotão">5º Pelotão</option>
+  <option value="6º Pelotão">6º Pelotão</option>
+      </select>
+      <input type="password" name="senha" placeholder="Senha" required>
+      <button type="submit">Cadastrar</button>
+    </form>
+    {% if erro %}
+      <p class="erro">{{ erro }}</p>
+    {% endif %}
+    <a href="{{ url_for('login') }}">Voltar ao login</a>
+  </div>
+</body>
+</html>

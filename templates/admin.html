@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel do Administrador</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f8f9fa 30%, #d6d6d6 70%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        header {
+            background-color: #f4c300; /* Amarelo Bandeirante */
+            padding: 15px;
+            color: #222;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+                .btn-liberar {
+            background-color: #343a40;
+            color: white;
+            border: none;
+        }
+                .btn-fechar {
+            background-color: #343a40;
+            color: white;
+            border: none;
+        }
+        .btn-exportar {
+            background-color: #343a40;
+            color: white;
+            border: none;
+        }
+        .btn-exportar:hover {
+            background-color: #ffd000ad;
+        }
+        .btn-logout {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+        }
+        .btn-logout:hover {
+            background-color: #565e64;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        table {
+            background-color: white;
+            font-size: 14px;
+            border-collapse: collapse !important;
+        }
+        th {
+            background-color: #f4c300 !important;
+            color: #222;
+            text-align: center !important;
+        }
+        td {
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+        tr:nth-child(even) {
+            background-color: #f1f1f1;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <!-- mostra mensagem (substitui get_flashed_messages) -->
+{% if status_msg %}
+  <div id="status-msg" class="status-msg {{ status_msg.type }}">
+    {{ status_msg.text }}
+  </div>
+  <script>
+    // remove a mensagem após 4 segundos com fade-out
+    setTimeout(() => {
+      const el = document.getElementById('status-msg');
+      if (!el) return;
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(-8px)';
+      setTimeout(()=> el.remove(), 650);
+    }, 4000);
+  </script>
+{% endif %}
+
+    <header class="d-flex justify-content-between align-items-center">
+        <h4 class="m-0">🍽️ Painel do Administrador</h4>
+         <div class="admin-actions">
+
+        <small>⚠️ Somente dados dos próximos 7 dias serão exportados</small>
+        
+<div class="controle-marcacao">
+    
+  <form action="{{ url_for('abrir_marcacao') }}" method="post" class="btn btn-exportar me-2">
+    <button type="submit" class="btn btn-exportar me">
+      🟢 Liberar Marcação
+    </button>
+  </form>
+
+  <form action="{{ url_for('fechar_marcacao') }}" method="post" class="btn btn-exportar me-2">
+    <button type="submit" class="btn btn-exportar me-2">
+      🔒 Encerrar Marcação
+    </button>
+  </form>
+</div>
+</form>
+  </div>
+        <div>
+            <a href="{{ url_for('exportar') }}" class="btn btn-exportar me-2">📊 Exportar por Pelotões</a>
+                        <form action="{{ url_for('exportar_total') }}" method="post" class="btn btn-export-total">
+  <button type="submit" class="btn btn-exportar me-2">📊 Exportar todas as refeições</button>
+            <a href="{{ url_for('logout') }}" class="btn btn-logout">🚪 Sair</a>
+
+</form>
+
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="table-responsive shadow-sm rounded">
+            {{ tabela_html | safe }}
+        </div>
+    </div>
+    <div class="footer">
+        <small>EsPRv - Sistema de Refeição 2025</small>
+    </div>
+</form>
+
+
+
+</body>
+</html>

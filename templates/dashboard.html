@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel do Usuário</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      background: linear-gradient(135deg, #2f2f2f, #3f3f3f);
+      color: #f1f1f1;
+      font-family: "Segoe UI", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #444;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+      width: 90%;
+      max-width: 800px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #ffd700;
+      margin-bottom: 25px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      background: #333;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #555;
+    }
+
+    th {
+      background-color: #555;
+      color: #ffd700;
+    }
+
+    tr:hover {
+      background-color: #505050;
+    }
+
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: #ffd700;
+      cursor: pointer;
+    }
+
+    button {
+      padding: 12px 30px;
+      background-color: #ffd700;
+      color: #333;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #e6c200;
+    }
+
+    a {
+      color: #ffd700;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .msg {
+      color: #90ee90;
+      background: #333;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Marcar Refeições (Próximos 7 dias)</h2>
+  <form method="post">
+    <table>
+      <tr>
+        <th>Data</th>
+        <th>Café da Manhã</th>
+        <th>Almoço</th>
+        <th>Janta</th>
+      </tr>
+      {% for d in dias %}
+      <tr>
+        <td>{{ d }}</td>
+        <td><input type="checkbox" name="cafe_{{ d }}" {% if refeicoes[d][0] %}checked{% endif %}></td>
+        <td><input type="checkbox" name="almoco_{{ d }}" {% if refeicoes[d][1] %}checked{% endif %}></td>
+        <td><input type="checkbox" name="janta_{{ d }}" {% if refeicoes[d][2] %}checked{% endif %}></td>
+      </tr>
+      {% endfor %}
+    </table>
+{% if marcacao_aberta %}
+  <button type="submit">Salvar</button>
+{% else %}
+  <p class="msg">🔒 Sistema fechado. Apenas visualização disponível.</p>
+{% endif %}
+  </form>
+  {% if msg %}<p class="msg">{{ msg }}</p>{% endif %}
+  <a href="{{ url_for('logout') }}">Sair</a>
+</div>
+</body>
+</html>
