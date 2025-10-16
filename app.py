@@ -5,9 +5,6 @@ from datetime import datetime, timedelta
 import os
 import io
 from io import BytesIO
-const express = require('express')
-const app = express()
-const port = process.env.PORT || 4000 
 
 app = Flask(__name__)
 app.secret_key = "segredo123"
@@ -460,6 +457,7 @@ def logout():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))  # Pega a porta do ambiente, padrão 5000
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
